@@ -1,19 +1,15 @@
-import pandas as pd
-import numeric
+from numeric import Numeric
 
 class Explore:
     
     def __init__(self, data):
         self.data = data
-
-        self.dtypes = self.pdtypes()
+        self.dtypes = self.__pdtypes()
         
         self.null = data.isnull().sum()
+        self.numeric = Numeric(self)
 
-        self.min = numeric.min(self)
-        self.max = numeric.max(self)
-    
-    def pdtypes(self):
+    def __pdtypes(self):
         """
         Parse data type of every column in the DataFrame.
 
