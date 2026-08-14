@@ -1,4 +1,5 @@
 from numeric import Numeric
+from text import Text
 
 class Explore:
     
@@ -8,6 +9,7 @@ class Explore:
         
         self.null = data.isnull().sum()
         self.numeric = Numeric(self)
+        self.text = Text(self)
 
     def __pdtypes(self):
         """
