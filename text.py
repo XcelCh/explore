@@ -1,6 +1,9 @@
 from collections import Counter
 
 class Text:
+    """
+    A class to analyze text data in a pandas DataFrame.
+    """
     
     def __init__(self, exp):
         self.exp = exp
@@ -19,13 +22,13 @@ class Text:
         """
         self.length = {key: self.exp.data[key].str.len() for key in self.columns}
         
-        self.longest_text = self.__longest_text()
-        self.shortest_text = self.__shortest_text()
+        self.longest = self.__longest()
+        self.shortest = self.__shortest()
         self.count_empty = self.__count_empty()
         self.count_occur = self.__count_occur()
         self.has_symbol = self.__has_symbol()
         
-    def __longest_text(self):
+    def __longest(self):
         """
         Retrieve the longest text by length for every row from every column with string data.
 
@@ -44,7 +47,7 @@ class Text:
         
         return {key: {val for val in self.exp.data[self.length[key] == self.length[key].max()][key]} for key in self.columns}    
         
-    def __shortest_text(self):
+    def __shortest(self):
         """
         Retrieve the shortest text by length for every row from every column with string data.
 
@@ -83,9 +86,53 @@ class Text:
         return {key: (self.exp.data[key] == '').sum() for key in self.columns}
         
     def __count_occur(self):
+        """
+        Count occurence of every text in every column with string data.
+        
+        Args:
+            -
+        
+        Returns:
+            dict: column name and counter of text occurence.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Calculate total occurence of each text.
+        """
         
         return {key: Counter(self.exp.data[key]) for key in self.columns}
         
     def __has_symbol(self):
+        """
+        Check if any text in every column with string data contains symbols.
+
+        Args:
+            -
+
+        Returns:
+            dict: column name and boolean indicating if any text contains symbols.
+        """
         
+        """
+        Dict comprehension structure:
+        1. Getting key (column name) from every column.
+        2. Check if any text contains symbols using regex.
+        """
+
         return {key: self.exp.data[key].str.contains('[^a-zA-Z0-9]', regex=True).any() for key in self.columns}
+
+    def __str__(self):
+        """
+        String representation of the Text class.
+
+        Returns:
+            str: A string representation of the Text class.
+        """
+        return f"Columns with text values: {self.columns}\n\n" \
+                f"shortest text: {self.shortest}\n\n" \
+                f"longest text: {self.longest}\n\n" \
+                f"Count of Empty Text: {self.count_empty}\n\n" \
+                f"Count of Text Occurrences: {self.count_occur}\n\n" \
+                f"Has Symbols: {self.has_symbol}"

@@ -160,6 +160,12 @@ class Numeric:
         return {val: self.exp.data[val].nunique() for val in self.columns}
 
     def __str__(self):
+        """
+        String representation of the Numeric class.
+
+        Returns:
+            str: A string representation of the Numeric class.
+        """
         return f"Columns with numeric values: {self.columns}\n\n" \
                 f"Minimum Values: {self.min}\n\n" \
                 f"Maximum Values: {self.max}\n\n" \

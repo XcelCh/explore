@@ -1,5 +1,6 @@
 from numeric import Numeric
 from text import Text
+from category import Category
 
 class Explore:
     
@@ -10,6 +11,7 @@ class Explore:
         self.null = data.isnull().sum()
         self.numeric = Numeric(self)
         self.text = Text(self)
+        self.category = Category(self)
 
     def __pdtypes(self):
         """
