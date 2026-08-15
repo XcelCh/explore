@@ -1,7 +1,7 @@
 import seaborn as sns
 import explore
 
-df = sns.load_dataset('titanic')
+df = sns.load_dataset('dowjones')
 exp = explore.Explore(df)
 
 print('Data Types:')
@@ -23,3 +23,6 @@ print('\n')
 print('Category Summary:')
 print(exp.category)
 print('\n')
+
+print('Date Summary:')
+print(exp.date)

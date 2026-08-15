@@ -1,6 +1,7 @@
 from numeric import Numeric
 from text import Text
 from category import Category
+from date import Date
 
 class Explore:
     """
@@ -15,9 +16,11 @@ class Explore:
         self.dtypes = self.__pdtypes()
         
         self.null = data.isnull().sum()
+        
         self.numeric = Numeric(self)
         self.text = Text(self)
         self.category = Category(self)
+        self.date = Date(self)
 
     def __pdtypes(self):
         """
