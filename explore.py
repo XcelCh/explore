@@ -3,6 +3,12 @@ from text import Text
 from category import Category
 
 class Explore:
+    """
+    A class to explore and analyze a pandas DataFrame.
+
+    Attributes:
+        data (pd.DataFrame): The DataFrame to be explored.
+    """
     
     def __init__(self, data):
         self.data = data
