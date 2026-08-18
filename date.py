@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+
 class Date:
     """
     A class to analyze date data in a pandas DataFrame.
@@ -56,7 +58,7 @@ class Date:
 
     def __range(self):
         """
-        Parse date or time range of column with relevant data types E.g. datetime and timedelta.
+        Parse datetime range between oldest and newest datetime of column with relevant data types E.g. datetime and timedelta.
 
         Args:
             -
@@ -70,7 +72,10 @@ class Date:
         1. Getting key (column name) from columns attribute as key 
         2. Accessing the corresponding column in the DataFrame to get the date or time range.
         """
-        return {key: self.exp.data[key].max() - self.exp.data[key].min() for key in self.columns}
+        
+        rdelta = {key: relativedelta(self.exp.data[key].max(), self.exp.data[key].min()) for key in self.columns}
+        
+        return {key: f'{val.years} years {val.months} months {val.days} days' for key, val in rdelta.items()}
 
     def __str__(self):
         """
@@ -79,7 +84,7 @@ class Date:
         Returns:
             str: String representation of the Date class.
         """
-        return f"Columns with date values: {self.columns}\n\n" \
-                f"Minimum dates: {self.min}\n\n" \
-                f"Maximum dates: {self.max}\n\n" \
-                f"Date ranges: {self.range}\n\n"
+        return f"Columns with datetime values: {self.columns}\n\n" \
+                f"Minimum datetime: {self.min}\n\n" \
+                f"Maximum datetime: {self.max}\n\n" \
+                f"Datetime ranges between oldest and newest data: {self.range}\n\n"

@@ -26,3 +26,4 @@ print('\n')
 
 print('Date Summary:')
 print(exp.date)
+print('\n')
