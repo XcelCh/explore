@@ -1,7 +1,7 @@
 import seaborn as sns
 import explore
 
-df = sns.load_dataset('dowjones')
+df = sns.load_dataset('titanic')
 exp = explore.Explore(df)
 
 print('Data Types:')

@@ -24,6 +24,7 @@ class Text:
         
         self.longest = self.__longest()
         self.shortest = self.__shortest()
+        self.avg_length = self.__avg_length()
         self.count_empty = self.__count_empty()
         self.count_occur = self.__count_occur()
         self.has_symbol = self.__has_symbol()
@@ -45,7 +46,26 @@ class Text:
         2. Getting every val (text) with the longest text and put it in a set.
         """
         
-        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].max()][key]} for key in self.columns}    
+        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].max()][key]} for key in self.columns}  
+
+    def __avg_length(self):
+        """
+        Retrieve the average text length for every row from every column with string data.
+
+        Args:
+            -
+        
+        Returns:
+            dict: column name and average text length.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Getting average length of the text column.
+        """
+        
+        return {key: self.exp.data[key].str.len().mean().round(2) for key in self.columns}
         
     def __shortest(self):
         """
@@ -133,6 +153,7 @@ class Text:
         return f"Columns with text values: {self.columns}\n\n" \
                 f"shortest text: {self.shortest}\n\n" \
                 f"longest text: {self.longest}\n\n" \
+                f"Average text length: {self.avg_length}\n\n" \
                 f"Count of Empty Text: {self.count_empty}\n\n" \
                 f"Count of Text Occurrences: {self.count_occur}\n\n" \
                 f"Has Symbols: {self.has_symbol}"
