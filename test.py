@@ -1,8 +1,9 @@
-import seaborn as sns
 import explore
+import pandas as pd
 
-df = sns.load_dataset('titanic')
-exp = explore.Explore(df)
+df = pd.read_csv('sample.csv')
+df2 = pd.DataFrame({'a':['123#$%%', '214124fsfaf)(*&^%^&^%$%^', ',./.asf/.fwf/[]qwf.qfq./f123(*+_+_=-'], 'b': ['12324wed)(*&()(_', 'iuhsajkbusai^&$^%&^*&(**^543', 'iuyvbionaub(&*^&()&^%$#$@#$@!#!~!~']})
+exp = explore.Explore(df2)
 
 print('Data Types:')
 print(exp.dtypes)

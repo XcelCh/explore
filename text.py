@@ -28,6 +28,7 @@ class Text:
         self.count_empty = self.__count_empty()
         self.count_occur = self.__count_occur()
         self.has_symbol = self.__has_symbol()
+        self.count_symbol = self.__count_symbol()
         
     def __longest(self):
         """
@@ -142,6 +143,25 @@ class Text:
         """
 
         return {key: self.exp.data[key].str.contains('[^a-zA-Z0-9]', regex=True).any() for key in self.columns}
+    
+    def __count_symbol(self):
+        """
+        Count symbol occurence in every column with string data.
+
+        Args:
+            -
+
+        Returns:
+            dict: column name and boolean indicating if any text contains symbols.
+        """
+        
+        """
+        Dict comprehension structure:
+        1. Getting key (column name) from every column.
+        2. Check if any text contains symbols using regex.
+        """
+        
+        return {key: self.exp.data[key].str.extractall(r'(?P<Symbol>[^a-zA-Z0-9])').groupby('Symbol').size() for key in self.columns}
 
     def __str__(self):
         """
@@ -156,4 +176,5 @@ class Text:
                 f"Average text length: {self.avg_length}\n\n" \
                 f"Count of Empty Text: {self.count_empty}\n\n" \
                 f"Count of Text Occurrences: {self.count_occur}\n\n" \
-                f"Has Symbols: {self.has_symbol}"
+                f"Has Symbols: {self.has_symbol}\n\n" \
+                f"Count of Symbol Occurrences: {self.count_symbol}\n\n"
