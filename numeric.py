@@ -1,9 +1,21 @@
 class Numeric:
     """
-    Numeric class to parse minimum, maximum, median, and mean value of column with relevant data types E.g. int, float.
+    Numeric class to explore columns with relevant data types E.g. int, float.
     """
 
     def __init__(self, exp):
+        """
+        Initialize numeric related data.
+
+        Args:
+            exp: Explore object which contain the data.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting val (column name) from columns attribute as key and accessing the corresponding column in the DataFrame to get the minimum value as value.
+        """
+        
         self.exp = exp
 
         """
@@ -26,9 +38,6 @@ class Numeric:
     def __min(self):
         """
         Parse minimum value of column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and minimum value parsed.
@@ -43,9 +52,6 @@ class Numeric:
     def __max(self):
         """
         Parse maximum value of column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and maximum value parsed.
@@ -60,9 +66,6 @@ class Numeric:
     def __median(self):
         """
         Parse median value of column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and median value parsed.
@@ -77,9 +80,6 @@ class Numeric:
     def __mean(self):
         """
         Parse mean value of column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and mean value parsed.
@@ -94,9 +94,6 @@ class Numeric:
     def __mode(self):
         """
         Parse mode value of column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and mode value parsed.
@@ -111,9 +108,6 @@ class Numeric:
     def __count_zero(self):
         """
         Count 0 values in column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and count of zero values parsed.
@@ -128,9 +122,6 @@ class Numeric:
     def __count_negative(self):
         """
         Count negative values in column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and count of negative values parsed.
@@ -145,9 +136,6 @@ class Numeric:
     def __count_unique(self):
         """
         Count unique values in column with relevant data types E.g. int, float.
-
-        Args:
-            -
         
         Returns:
             dict: column name and count of unique values parsed.

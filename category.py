@@ -2,10 +2,16 @@ from collections import Counter
 
 class Category:
     """
-    A class to analyze category data in a pandas DataFrame.
+    Category class to explore columns with category data types.
     """
     
     def __init__(self, exp):
+        """
+        Initialize Category related data.
+
+        Args:
+            exp: Explore object which contain the data.
+        """
         self.exp = exp
 
         """
@@ -23,9 +29,6 @@ class Category:
     def __occur(self):
         """
         Count the occurrence of every category in every column with category data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and Counter object of category values (exluding NULL) and their occurrence.
@@ -42,9 +45,6 @@ class Category:
     def __common(self):
         """
         Retrieve the most common category for every column with category data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and most common category.
@@ -61,9 +61,6 @@ class Category:
     def __rarest(self):
         """
         Retrieve the rarest category for every column with category data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and rarest category.

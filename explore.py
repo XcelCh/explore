@@ -1,3 +1,5 @@
+import missingno as msno
+
 from numeric import Numeric
 from text import Text
 from category import Category
@@ -6,12 +8,16 @@ from date import Date
 class Explore:
     """
     A class to explore and analyze a pandas DataFrame.
-
-    Attributes:
-        data (pd.DataFrame): The DataFrame to be explored.
     """
     
     def __init__(self, data):
+        """
+        Initialize explore with data to be analyzed.
+
+        Args:
+            data: pandas DataFrame to be analyzed.
+        """
+        
         self.data = data
         self.dtypes = self.__pdtypes()
         
@@ -25,9 +31,6 @@ class Explore:
     def __pdtypes(self):
         """
         Parse data type of every column in the DataFrame.
-
-        Args:
-            -
 
         Returns:
             dict: key value object of Numpy character code and lists of tuple that includes column name, data type, and category values if exist.
@@ -50,3 +53,13 @@ class Explore:
         val_detail = [(idx, dtypes[idx].name, dtypes[idx].categories.to_list()) if dtypes[idx].name == 'category' else (idx, dtypes[idx].name) for idx in dtypes.index.to_list()]
         
         return {key.kind:[val for val in val_detail if dtypes[val[0]].kind == key.kind] for key in dtypes.unique().tolist()}
+        
+    def null_matrix(self):
+        """
+        Generate nullity matrix of the data.
+        
+        Returns:
+            Matplotlib Axes: nullity matrix plotting axis.
+        
+        """
+        return msno.matrix(self.data)

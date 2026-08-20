@@ -2,10 +2,17 @@ from dateutil.relativedelta import relativedelta
 
 class Date:
     """
-    A class to analyze date data in a pandas DataFrame.
+    Date class to explore columns with relevant data types E.g. datetime.
     """
     
     def __init__(self, exp):
+        """
+        Initialize Date related data.
+
+        Args:
+            exp: Explore object which contain the data.
+        """
+        
         self.exp = exp
 
         """
@@ -23,9 +30,6 @@ class Date:
     def __min(self):
         """
         Parse minimum value of column with relevant data types E.g. datetime and timedelta.
-
-        Args:
-            -
         
         Returns:
             dict: column name and minimum value parsed.
@@ -41,9 +45,6 @@ class Date:
     def __max(self):
         """
         Parse maximum value of column with relevant data types E.g. datetime and timedelta.
-
-        Args:
-            -
         
         Returns:
             dict: column name and maximum value parsed.
@@ -59,9 +60,6 @@ class Date:
     def __range(self):
         """
         Parse datetime range between oldest and newest datetime of column with relevant data types E.g. datetime and timedelta.
-
-        Args:
-            -
         
         Returns:
             dict: column name and range value parsed.

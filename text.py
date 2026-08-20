@@ -2,10 +2,17 @@ from collections import Counter
 
 class Text:
     """
-    A class to analyze text data in a pandas DataFrame.
+    Text class to explore columns with relevant data types E.g. string object.
     """
     
     def __init__(self, exp):
+        """
+        Initialize Text related data.
+
+        Args:
+            exp: Explore object which contain the data.
+        """
+        
         self.exp = exp
         
         """
@@ -33,9 +40,6 @@ class Text:
     def __longest(self):
         """
         Retrieve the longest text by length for every row from every column with string data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and list of text with the longest length.
@@ -52,9 +56,6 @@ class Text:
     def __avg_length(self):
         """
         Retrieve the average text length for every row from every column with string data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and average text length.
@@ -71,9 +72,6 @@ class Text:
     def __shortest(self):
         """
         Retrieve the shortest text by length for every row from every column with string data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and list of text with the shortest length.
@@ -90,9 +88,6 @@ class Text:
     def __count_empty(self):
         """
         Count empty text in every column with string data.
-
-        Args:
-            -
         
         Returns:
             dict: column name and total count of row with emtpy text.
@@ -110,9 +105,6 @@ class Text:
         """
         Count occurence of every text in every column with string data.
         
-        Args:
-            -
-        
         Returns:
             dict: column name and counter of text occurence.
         """
@@ -129,9 +121,6 @@ class Text:
         """
         Check if any text in every column with string data contains symbols.
 
-        Args:
-            -
-
         Returns:
             dict: column name and boolean indicating if any text contains symbols.
         """
@@ -147,9 +136,6 @@ class Text:
     def __count_symbol(self):
         """
         Count symbol occurence in every column with string data.
-
-        Args:
-            -
 
         Returns:
             dict: column name and boolean indicating if any text contains symbols.
