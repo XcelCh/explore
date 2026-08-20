@@ -1,10 +1,13 @@
 import explore
 import pandas as pd
+import seaborn as sns
 
-df = pd.read_csv('sample.csv')
-df2 = pd.DataFrame({'a':['123#$%%', '214124fsfaf)(*&^%^&^%$%^', ',./.asf/.fwf/[]qwf.qfq./f123(*+_+_=-'], 'b': ['12324wed)(*&()(_', 'iuhsajkbusai^&$^%&^*&(**^543', 'iuyvbionaub(&*^&()&^%$#$@#$@!#!~!~']})
-exp = explore.Explore(df2)
+df = sns.load_dataset('titanic')
+exp = explore.Explore(df)
 
+print(exp.numeric.count_quartile)
+
+"""
 print('Data Types:')
 print(exp.dtypes)
 print('\n')
@@ -28,3 +31,4 @@ print('\n')
 print('Date Summary:')
 print(exp.date)
 print('\n')
+"""

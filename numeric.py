@@ -1,3 +1,6 @@
+import timeit
+from pandas import qcut
+
 class Numeric:
     """
     Numeric class to explore columns with relevant data types E.g. int, float.
@@ -31,6 +34,7 @@ class Numeric:
         self.median = self.__median()
         self.mean = self.__mean()
         self.mode = self.__mode()
+        self.count_quartile = self.__count_quartile()
         self.count_zero = self.__count_zero()
         self.count_negative = self.__count_negative()
         self.count_unique = self.__count_unique()
@@ -103,7 +107,23 @@ class Numeric:
         Dict comprehension structure: 
         1. Getting val (column name) from columns attribute as key and accessing the corresponding column in the DataFrame to get the mode value as value.
         """
+        
         return {val: self.exp.data[val].mode()[0] for val in self.columns}
+        
+    def __count_quartile(self):
+        """
+        Count the size of each quartile from column with relevant data types E.g. int, float.
+        
+        Returns:
+            dict: column name and quartile count.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting val (column name) from columns attribute as key and count the quartile group size.
+        """
+        
+        return {val: qcut(self.exp.data[val], 4, duplicates='drop').value_counts().sort_index() for val in self.columns}
 
     def __count_zero(self):
         """
