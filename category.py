@@ -22,11 +22,11 @@ class Category:
         """
         self.columns = [val[0] for key, vals in self.exp.dtypes.items() if key in 'O' for val in vals if val[1] == 'category']
 
-        self.occur = self.__occur()
-        self.common = self.__common()
-        self.rarest = self.__rarest()
+        self.occur = self._occur()
+        self.common = self._common()
+        self.rarest = self._rarest()
 
-    def __occur(self):
+    def _occur(self):
         """
         Count the occurrence of every category in every column with category data.
         
@@ -42,7 +42,7 @@ class Category:
         
         return {key: Counter(self.exp.data[key].dropna()) for key in self.columns}
 
-    def __common(self):
+    def _common(self):
         """
         Retrieve the most common category for every column with category data.
         
@@ -58,7 +58,7 @@ class Category:
 
         return {key: self.occur[key].most_common(1)[0][0] for key in self.columns}
 
-    def __rarest(self):
+    def _rarest(self):
         """
         Retrieve the rarest category for every column with category data.
         

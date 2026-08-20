@@ -29,79 +29,14 @@ class Text:
         """
         self.length = {key: self.exp.data[key].str.len() for key in self.columns}
         
-        self.longest = self.__longest()
-        self.shortest = self.__shortest()
-        self.avg_length = self.__avg_length()
-        self.count_empty = self.__count_empty()
-        self.count_occur = self.__count_occur()
-        self.has_symbol = self.__has_symbol()
-        self.count_symbol = self.__count_symbol()
-        
-    def __longest(self):
-        """
-        Retrieve the longest text by length for every row from every column with string data.
-        
-        Returns:
-            dict: column name and list of text with the longest length.
-        """
+        self.longest = self._longest()
+        self.shortest = self._shortest()
+        self.avg_length = self._avg_length()
+        self.count_unique = self._count_unique()
+        self.count_empty = self._count_empty()
+        self.has_symbol = self._has_symbol()
 
-        """
-        Dict comprehension structure: 
-        1. Getting key (column name) from every column.
-        2. Getting every val (text) with the longest text and put it in a set.
-        """
-        
-        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].max()][key]} for key in self.columns}  
-
-    def __avg_length(self):
-        """
-        Retrieve the average text length for every row from every column with string data.
-        
-        Returns:
-            dict: column name and average text length.
-        """
-
-        """
-        Dict comprehension structure: 
-        1. Getting key (column name) from every column.
-        2. Getting average length of the text column.
-        """
-        
-        return {key: self.exp.data[key].str.len().mean().round(2) for key in self.columns}
-        
-    def __shortest(self):
-        """
-        Retrieve the shortest text by length for every row from every column with string data.
-        
-        Returns:
-            dict: column name and list of text with the shortest length.
-        """
-
-        """
-        Dict comprehension structure: 
-        1. Getting key (column name) from every column.
-        2. Getting every val (text) with the shortest text and put it in a set.
-        """
-        
-        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].min()][key]} for key in self.columns}
-    
-    def __count_empty(self):
-        """
-        Count empty text in every column with string data.
-        
-        Returns:
-            dict: column name and total count of row with emtpy text.
-        """
-
-        """
-        Dict comprehension structure: 
-        1. Getting key (column name) from every column.
-        2. Calculate total number of empty text.
-        """
-        
-        return {key: (self.exp.data[key] == '').sum() for key in self.columns}
-        
-    def __count_occur(self):
+    def count_occur(self):
         """
         Count occurence of every text in every column with string data.
         
@@ -116,24 +51,8 @@ class Text:
         """
         
         return {key: Counter(self.exp.data[key]) for key in self.columns}
-        
-    def __has_symbol(self):
-        """
-        Check if any text in every column with string data contains symbols.
 
-        Returns:
-            dict: column name and boolean indicating if any text contains symbols.
-        """
-        
-        """
-        Dict comprehension structure:
-        1. Getting key (column name) from every column.
-        2. Check if any text contains symbols using regex.
-        """
-
-        return {key: self.exp.data[key].str.contains('[^a-zA-Z0-9]', regex=True).any() for key in self.columns}
-    
-    def __count_symbol(self):
+    def count_symbol(self):
         """
         Count symbol occurence in every column with string data.
 
@@ -148,6 +67,102 @@ class Text:
         """
         
         return {key: self.exp.data[key].str.extractall(r'(?P<Symbol>[^a-zA-Z0-9])').groupby('Symbol').size() for key in self.columns}
+        
+    def _longest(self):
+        """
+        Retrieve the longest text by length for every row from every column with string data.
+        
+        Returns:
+            dict: column name and list of text with the longest length.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Getting every val (text) with the longest text and put it in a set.
+        """
+        
+        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].max()][key]} for key in self.columns}
+
+    def _shortest(self):
+        """
+        Retrieve the shortest text by length for every row from every column with string data.
+        
+        Returns:
+            dict: column name and list of text with the shortest length.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Getting every val (text) with the shortest text and put it in a set.
+        """
+        
+        return {key: {val for val in self.exp.data[self.length[key] == self.length[key].min()][key]} for key in self.columns}
+
+    def _avg_length(self):
+        """
+        Retrieve the average text length for every row from every column with string data.
+        
+        Returns:
+            dict: column name and average text length.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Getting average length of the text column.
+        """
+        
+        return {key: self.exp.data[key].str.len().mean().round(2) for key in self.columns}
+
+    def _count_unique(self):
+        """
+        Retrieve unique count of text for every row from every column with string data.
+        
+        Returns:
+            dict: column name and count of unique text.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Counting unique text in the column.
+        """
+        
+        return {key: self.exp.data[key].nunique() for key in self.columns}
+    
+    def _count_empty(self):
+        """
+        Count empty text in every column with string data.
+        
+        Returns:
+            dict: column name and total count of row with empty text.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting key (column name) from every column.
+        2. Calculate total number of empty text.
+        """
+        
+        return {key: (self.exp.data[key] == '').sum() for key in self.columns}
+        
+    def _has_symbol(self):
+        """
+        Check if any text in every column with string data contains symbols.
+
+        Returns:
+            dict: column name and boolean indicating if any text contains symbols.
+        """
+        
+        """
+        Dict comprehension structure:
+        1. Getting key (column name) from every column.
+        2. Check if any text contains symbols using regex.
+        """
+
+        return {key: self.exp.data[key].str.contains('[^a-zA-Z0-9]', regex=True).any() for key in self.columns}
 
     def __str__(self):
         """

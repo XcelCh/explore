@@ -29,50 +29,64 @@ class Numeric:
         """
         self.columns = [val[0] for key, vals in self.exp.dtypes.items() if key in 'iuf' for val in vals]
 
-        self.min = self.__min()
-        self.max = self.__max()
-        self.median = self.__median()
-        self.mean = self.__mean()
-        self.mode = self.__mode()
-        self.count_quartile = self.__count_quartile()
-        self.count_zero = self.__count_zero()
-        self.count_negative = self.__count_negative()
-        self.count_unique = self.__count_unique()
+        self.min = self._min()
+        self.max = self._max()
+        self.mean = self._mean()
+        self.median = self._median()
+        self.mode = self._mode()
+        self.count_zero = self._count_zero()
+        self.count_negative = self._count_negative()
+        self.count_unique = self._count_unique()
 
-    def __min(self):
+    def count_quartile(self):
+        """
+        Count the size of each quartile from column with relevant data types E.g. int, float.
+        
+        Returns:
+            list: Quartile count of every numeric column.
+        """
+
+        """
+        Dict comprehension structure: 
+        1. Getting val (column name) from columns attribute as key and count the quartile group size.
+        """
+        
+        return [qcut(self.exp.data[val], 4, duplicates='drop').value_counts().sort_index() for val in self.columns]
+
+    def _min(self):
         """
         Parse minimum value of column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and minimum value parsed.
+            dict: Column name and minimum value parsed.
         """
 
         """
         Dict comprehension structure: 
         1. Getting val (column name) from columns attribute as key and accessing the corresponding column in the DataFrame to get the minimum value as value.
         """
-        return {val: self.exp.data[val].min() for val in self.columns}
+        return {val: self.exp.data[val].min().round(2) for val in self.columns}
 
-    def __max(self):
+    def _max(self):
         """
         Parse maximum value of column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and maximum value parsed.
+            dict: Column name and maximum value parsed.
         """
 
         """
         Dict comprehension structure: 
         1. Getting val (column name) from columns attribute as key and accessing the corresponding column in the DataFrame to get the maximum value as value.
         """
-        return {val: self.exp.data[val].max() for val in self.columns}
+        return {val: self.exp.data[val].max().round(2) for val in self.columns}
 
-    def __median(self):
+    def _median(self):
         """
         Parse median value of column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and median value parsed.
+            dict: Column name and median value parsed.
         """
 
         """
@@ -81,12 +95,12 @@ class Numeric:
         """
         return {val: self.exp.data[val].median().round(2) for val in self.columns}
 
-    def __mean(self):
+    def _mean(self):
         """
         Parse mean value of column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and mean value parsed.
+            dict: Column name and mean value parsed.
         """
 
         """
@@ -95,12 +109,12 @@ class Numeric:
         """
         return {val: self.exp.data[val].mean().round(2) for val in self.columns}
 
-    def __mode(self):
+    def _mode(self):
         """
         Parse mode value of column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and mode value parsed.
+            dict: Column name and mode value parsed.
         """
 
         """
@@ -109,28 +123,13 @@ class Numeric:
         """
         
         return {val: self.exp.data[val].mode()[0] for val in self.columns}
-        
-    def __count_quartile(self):
-        """
-        Count the size of each quartile from column with relevant data types E.g. int, float.
-        
-        Returns:
-            dict: column name and quartile count.
-        """
 
-        """
-        Dict comprehension structure: 
-        1. Getting val (column name) from columns attribute as key and count the quartile group size.
-        """
-        
-        return {val: qcut(self.exp.data[val], 4, duplicates='drop').value_counts().sort_index() for val in self.columns}
-
-    def __count_zero(self):
+    def _count_zero(self):
         """
         Count 0 values in column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and count of zero values parsed.
+            dict: Column name and count of zero values parsed.
         """
 
         """
@@ -139,12 +138,12 @@ class Numeric:
         """
         return {val: (self.exp.data[val] == 0).sum() for val in self.columns}
 
-    def __count_negative(self):
+    def _count_negative(self):
         """
         Count negative values in column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and count of negative values parsed.
+            dict: Column name and count of negative values parsed.
         """
 
         """
@@ -153,12 +152,12 @@ class Numeric:
         """
         return {val: (self.exp.data[val] < 0).sum() for val in self.columns}
 
-    def __count_unique(self):
+    def _count_unique(self):
         """
         Count unique values in column with relevant data types E.g. int, float.
         
         Returns:
-            dict: column name and count of unique values parsed.
+            dict: Column name and count of unique values parsed.
         """
 
         """

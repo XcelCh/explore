@@ -23,11 +23,11 @@ class Date:
         """
         self.columns = [val[0] for key, vals in self.exp.dtypes.items() if key in 'mM' for val in vals]
 
-        self.min = self.__min()
-        self.max = self.__max()
-        self.range = self.__range()
+        self.min = self._min()
+        self.max = self._max()
+        self.range = self._range()
 
-    def __min(self):
+    def _min(self):
         """
         Parse minimum value of column with relevant data types E.g. datetime and timedelta.
         
@@ -40,9 +40,10 @@ class Date:
         1. Getting key (column name) from columns attribute as key.
         2. Accessing the corresponding column in the DataFrame to get the minimum value as value.
         """
+        
         return {key: self.exp.data[key].min() for key in self.columns}
 
-    def __max(self):
+    def _max(self):
         """
         Parse maximum value of column with relevant data types E.g. datetime and timedelta.
         
@@ -55,9 +56,10 @@ class Date:
         1. Getting key (column name) from columns attribute as key.
         2. Accessing the corresponding column in the DataFrame to get the maximum value as value.
         """
+
         return {key: self.exp.data[key].max() for key in self.columns}
 
-    def __range(self):
+    def _range(self):
         """
         Parse datetime range between oldest and newest datetime of column with relevant data types E.g. datetime and timedelta.
         

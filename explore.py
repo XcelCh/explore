@@ -1,4 +1,5 @@
 import missingno as msno
+import pandas as pd
 
 from numeric import Numeric
 from text import Text
@@ -19,7 +20,7 @@ class Explore:
         """
         
         self.data = data
-        self.dtypes = self.__pdtypes()
+        self.dtypes = self._pdtypes()
         
         self.null = data.isnull().sum()
         
@@ -28,7 +29,7 @@ class Explore:
         self.category = Category(self)
         self.date = Date(self)
 
-    def __pdtypes(self):
+    def _pdtypes(self):
         """
         Parse data type of every column in the DataFrame.
 
@@ -63,3 +64,67 @@ class Explore:
         
         """
         return msno.matrix(self.data)
+
+    def numeric_summary(self):
+        """
+        Generate summary of numeric columns in the data.
+        
+        Returns:
+            pandas DataFrame: summary of numeric columns.
+        """
+
+        return pd.DataFrame({
+            'Min': self.numeric.min,
+            'Max': self.numeric.max,
+            'Mean': self.numeric.mean,
+            'Median': self.numeric.median,
+            'Mode': self.numeric.mode,
+            'Count Zero': self.numeric.count_zero,
+            'Count Negative': self.numeric.count_negative,
+            'Count Unique': self.numeric.count_unique
+            })
+
+    def text_summary(self):
+        """
+        Generate summary of text columns in the data.
+        
+        Returns:
+            pandas DataFrame: summary of text columns.
+        """
+
+        return pd.DataFrame({
+            'Longest': self.text.longest,
+            'Shortest': self.text.shortest,
+            'Average Length': self.text.avg_length,
+            'Unique Count': self.text.count_unique,
+            'Empty Count': self.text.count_empty,
+            'Has Symbol': self.text.has_symbol
+            })
+
+    def category_summary(self):
+        """
+        Generate summary of category columns in the data.
+        
+        Returns:
+            pandas DataFrame: summary of category columns.
+        """
+
+        return pd.DataFrame({
+            'Most Common': self.category.common,
+            'Rarest': self.category.rarest,
+            'Occurrence': self.category.occur
+            })
+
+    def date_summary(self):
+        """
+        Generate summary of date columns in the data.
+        
+        Returns:
+            pandas DataFrame: summary of date columns.
+        """
+
+        return pd.DataFrame({
+            'Earliest': self.date.min,
+            'Latest': self.date.max,
+            'Range': self.date.range
+            })
