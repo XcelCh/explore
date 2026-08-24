@@ -21,7 +21,7 @@ class Text:
         2. Filter whether key (character code) belong to 'OST' (object, byte string, and StringDType).
         3. Getting val (column name) from vals (list of tuple(column name, data type)).
         """
-        self.columns = [val[0] for key, vals in self.exp.dtypes.items() if key in 'OST' for val in vals if val[1] == 'str']
+        self.columns = [val[0] for key, vals in self.exp.dtypes.items() if key in 'OST' for val in vals]
         
         """
         Dict comprehension structure:

@@ -5,6 +5,7 @@ from numeric import Numeric
 from text import Text
 from category import Category
 from date import Date
+from boolean import Boolean
 
 class Explore:
     """
@@ -28,6 +29,7 @@ class Explore:
         self.text = Text(self)
         self.category = Category(self)
         self.date = Date(self)
+        self.boolean = Boolean(self)
 
     def _pdtypes(self):
         """
@@ -127,4 +129,17 @@ class Explore:
             'Earliest': self.date.min,
             'Latest': self.date.max,
             'Range': self.date.range
+            })
+            
+    def bool_summary(self):
+        """
+        Generate summary of boolean columns in the data.
+        
+        Returns:
+            pandas DataFrame: summary of boolean columns.
+        """
+
+        return pd.DataFrame({
+            'True': self.boolean.true,
+            'False': self.boolean.false
             })
