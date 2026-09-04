@@ -1,4 +1,3 @@
-import timeit
 from pandas import qcut
 
 class Numeric:

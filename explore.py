@@ -1,4 +1,3 @@
-import missingno as msno
 import pandas as pd
 
 from numeric import Numeric
@@ -56,16 +55,6 @@ class Explore:
         val_detail = [(idx, dtypes[idx].name, dtypes[idx].categories.to_list()) if dtypes[idx].name == 'category' else (idx, dtypes[idx].name) for idx in dtypes.index.to_list()]
         
         return {key.kind:[val for val in val_detail if dtypes[val[0]].kind == key.kind] for key in dtypes.unique().tolist()}
-        
-    def null_matrix(self):
-        """
-        Generate nullity matrix of the data.
-        
-        Returns:
-            Matplotlib Axes: nullity matrix plotting axis.
-        
-        """
-        return msno.matrix(self.data)
 
     def numeric_summary(self):
         """
